@@ -20,7 +20,7 @@ pipeline {
       steps{
         dir('app1'){
           script {
-            sh 'docker rmi -f ${baseImage}'
+            bat 'docker rmi -f ${baseImage}'
             dockerImage = docker.build dockerimagename
           }
         }
@@ -35,7 +35,7 @@ pipeline {
         script {
           docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
               dockerImage.push("${BUILD_NUMBER}")
-              sh 'docker rmi -f ${dockerimagename}'
+              bat 'docker rmi -f ${dockerimagename}'
           }
         }
       }
